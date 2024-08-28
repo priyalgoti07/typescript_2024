@@ -117,7 +117,8 @@ form.onsubmit = (e) => {
 };
 const myObj = {
     name: "priyal",
-    email: "priyal@gmail.com"
+    email: "priyal@gmail.com",
+    phoneno: 2323232323,
 };
 const getName = () => {
     return myObj["name"];
@@ -125,6 +126,30 @@ const getName = () => {
 const getEmail = () => {
     return myObj["email"];
 };
+const getPhone = () => {
+    return myObj["phoneno"];
+};
 const getdata = (key) => {
     return myObj[key];
 };
+console.log("getdara", getdata("phoneno"));
+const usersss = {
+    priyal: { age: 28 },
+    riddhi: { age: 27 },
+    pinali: { age: 28 },
+    kavita: { age: 30 }
+};
+// -----------------------------------------------------Parameters<Type>  
+const myfunc = (a, b) => {
+    console.log(a + b);
+};
+const func = (n) => {
+    let text;
+    return n;
+};
+const genrP = {
+    name: "sjdnj",
+    age: 23
+};
+const ans = func(genrP);
+ans.name;

@@ -221,20 +221,185 @@ form.onsubmit = (e: SubmitEvent) => {
 
 
 interface Person {
-    [key: string]: string
+    [key: string]: string | number;
+    [key: number]: number | string;
 }
 
 const myObj: Person = {
     name: "priyal",
-    email: "priyal@gmail.com"
+    email: "priyal@gmail.com",
+    phoneno: 2323232323,
 }
 
 const getName = (): string => {
-    return myObj["name"]
+    return myObj["name"] as string
 }
 const getEmail = (): string => {
-    return myObj["email"]
+    return myObj["email"] as string
 }
-const getdata = (key: string): string => {
+
+const getPhone = (): number => {
+    return myObj["phoneno"] as number
+}
+
+const getdata = (key: keyof Person): string | number => {
     return myObj[key]
+}
+
+console.log("getdara", getdata("phoneno"));
+
+// -------------------------------------------------------->utilty Type
+// 1>Partail<Type>
+// 2>Required<Type>
+// 3>Readonly<Type>
+// 4>Record<keys,Type>
+// 5>Pick<Type, Keys>
+// 6>Omit<keys,Type>
+// 7>Exclude<UnionType, ExcludedMembers>
+// 8>Extract<Type, Union>
+// 9>NonNullable<Type>
+// 10>Parameters<Type>
+// 11>ConstructorParameters<Type>
+// 12>ReturnType<Type>
+// 13>InstanceType<Type>
+
+
+// --------------------------->Partail<Type> ------(optional)
+// type User = {
+//     name: string,
+//     email: string
+// }
+// type user2 = Partial<User>
+
+
+// ------------------------->Required<Type>  ----- opposite of partial(mandatory)
+// type User = {
+//     name?: string,
+//     email: string
+// }
+
+// const user: Required<User> = {
+//     name: "priyal",
+//     email: "gotipriyal@gmail.com"
+// }
+
+
+//---------------------------> Readonly<Type>    make every property readonly
+// type User3 = {
+//     name: string,
+//     email: string
+// }
+// const User4: Readonly<User3> = {
+//     name: "priyal",
+//     email: "priyal@gmail.com"
+// }
+// User4.email = "sjdnf@gmail.com"
+
+
+// ----------------------------------------Record<keys, Type>
+
+type User5 = {
+    name: string,
+    email: string,
+}
+
+type User6 = Record<"name" | "email" | "phoneno", string>
+
+
+interface UserInfo {
+    age: number
+}
+
+type Username = "priyal" | "riddhi" | "pinali" | "kavita"
+
+const usersss: Record<Username, UserInfo> = {
+    priyal: { age: 28 },
+    riddhi: { age: 27 },
+    pinali: { age: 28 },
+    kavita: { age: 30 }
+}
+
+// ------------------------------------------> Pick<Type, Keys>
+
+interface OderInfo {
+    readonly id: string,
+    user: string,
+    city: string,
+    state: string,
+    county: string,
+    status: string
+}
+
+type ShippingInfo = Pick<OderInfo, "city" | "state" | "county">
+
+// ------------------------------------------> Omit<Type, Keys>
+
+interface ShippingIn {
+    cite: string,
+    state: string,
+    country: string
+}
+
+type Random = Omit<ShippingIn, "country">
+
+// -------------------------------------------->Exclude<UnionType, ExcludedMembers> Second Parameter is menus
+type MyUnion = string | number | boolean
+
+type Random1 = Exclude<MyUnion, string>
+
+// ----------------------------------------->Extract<Type, Union>  Second Parameter Type  will be consider only 
+type MyUnion1 = string | number | boolean
+
+type Random2 = Extract<MyUnion, boolean>
+
+// ------------------------------------------>NonNullable<Type>   null and undefined Type not a consider 
+
+type MyUnion3 = string | number | boolean
+
+type Random4 = NonNullable<MyUnion3>
+type Random5 = Exclude<MyUnion3, undefined | null>
+
+
+
+// -----------------------------------------------------Parameters<Type>  
+const myfunc = (a: number, b: string) => {
+    console.log(a + b);
+
+}
+type rendoM = Parameters<typeof myfunc>
+
+// -------------------------->ConstructorParameters<Type>
+
+
+// ------------------------------------------->ReturnType<Type>
+
+
+//---------------------------------------------------------->InstanceType<Type>
+
+
+// --------------------------------------------------------------------------Generics---------------------------------------------------------------------------------------//
+// type Persones = {
+//     name: string,
+//     age: number
+// }
+
+// const func = <T>(n: T): T => {
+//     let text: T
+//     return n
+// }
+
+// const genrP: Persones = {
+//     name: "sjdnj",
+//     age: 23
+// }
+// const ans = func<Persones>(genrP)
+// ans.name
+
+// const ar1: number[] = []
+// const ar2: Array<number> = []
+
+
+
+const fun = <T, U>(n: T, m: U): object => {
+    return { n, m }
 }
